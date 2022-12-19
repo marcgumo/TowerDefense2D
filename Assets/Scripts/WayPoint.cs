@@ -10,6 +10,11 @@ public class WayPoint : MonoBehaviour
 
     public List<Transform> _wayPointList => wayPointList;
 
+    public Transform GetPointPosition(int index)
+    {
+        return wayPointList[index];
+    }
+
     private void OnDrawGizmos()
     {
         for (int i = 0; i < wayPointList.Count; i++)
