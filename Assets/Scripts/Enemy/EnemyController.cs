@@ -19,6 +19,8 @@ public class EnemyController : MonoBehaviour
     {
         wayPoint = GameObject.FindGameObjectWithTag("WayPoint").GetComponent<WayPoint>();
         moveSpeed = movementSpeed;
+
+        Flip();
     }
 
     private void Update()
@@ -36,6 +38,7 @@ public class EnemyController : MonoBehaviour
                 gameObject.SetActive(false);
                 return;
             }
+            Flip();
         }
         
         Move();
@@ -50,5 +53,30 @@ public class EnemyController : MonoBehaviour
     public void ResetCurrentPathPoint()
     {
         currentPathPoint = 0;
+    }
+
+    public void Flip()
+    {
+        if (wayPoint.GetPointPosition(currentPathPoint).position.x > transform.position.x)
+        {
+            transform.localScale = Vector3.one;
+        }
+        else
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+    }
+
+    public void StopMovement()
+    {
+        moveSpeed = 0;
+    }
+
+    public void ResumeMovement()
+    {
+        if (!GetComponent<HealthManager>().GetEnemyisDead())
+        {
+            moveSpeed = movementSpeed;
+        }
     }
 }

@@ -94,10 +94,12 @@ public class SpawnerController : MonoBehaviour
     private void OnEnable()
     {
         EnemyController.onPathFinished += EnemyDismiss;
+        HealthManager.onEnemyDead += EnemyDismiss;
     }
 
     private void OnDisable()
     {
         EnemyController.onPathFinished -= EnemyDismiss;
+        HealthManager.onEnemyDead -= EnemyDismiss;
     }
 }

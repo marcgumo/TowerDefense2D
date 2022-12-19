@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,11 +15,20 @@ public class HealthManager : MonoBehaviour
     [Header("Stats")]
     [SerializeField] private int maxHealth;
     int currentHealth;
+
+    public static Action<EnemyController> onEnemyDead;
+    EnemyController enemy;
+
+    public static Action<EnemyController> onEnemyHit;
+
+    private bool enemyDead = false;
     
     void Start()
     {
         currentHealth = maxHealth;
         HPBarUpdate();
+
+        enemy = GetComponent<EnemyController>();
     }
 
     void Update()
@@ -31,6 +41,11 @@ public class HealthManager : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (enemyDead)
+        {
+            return;
+        }
+        
         currentHealth -= damage;
 
         HPBarUpdate();
@@ -41,28 +56,32 @@ public class HealthManager : MonoBehaviour
 
             if (currentEnemyType == EnemyType.Enemy01)
             {
-                //die
+                EnemyDead();
             }
 
             if (currentEnemyType == EnemyType.Enemy02)
             {
-                //die
+                EnemyDead();
             }
 
             if (currentEnemyType == EnemyType.Enemy03)
             {
-                //die
+                EnemyDead();
             }
 
             if (currentEnemyType == EnemyType.Enemy04)
             {
-                //die
+                EnemyDead();
             }
 
             if (currentEnemyType == EnemyType.Enemy05)
             {
-                //die
+                EnemyDead();
             }
+        }
+        else
+        {
+            onEnemyHit?.Invoke(enemy);
         }
     }
 
@@ -70,10 +89,36 @@ public class HealthManager : MonoBehaviour
     {
         currentHealth = maxHealth;
         HPBarUpdate();
+
+        Invoke("ResetEnemyDeadLater", 0.1f);
     }
 
     public void HPBarUpdate()
     {
         hpBar.fillAmount = (float)currentHealth / maxHealth;
+    }
+
+    void EnemyDead()
+    {
+        //RestartHealth();
+
+        enemyDead = true;
+
+        enemy.ResetCurrentPathPoint();
+
+        onEnemyDead?.Invoke(enemy);
+
+        //gameObject.SetActive(false);
+    }
+
+    public bool GetEnemyisDead()
+    {
+        return enemyDead;
+    }
+
+    private void ResetEnemyDeadLater()
+    {
+        enemyDead = false;
+        enemy.ResumeMovement();
     }
 }
