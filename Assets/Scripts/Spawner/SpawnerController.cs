@@ -25,12 +25,18 @@ public class SpawnerController : MonoBehaviour
     [SerializeField] private int enemiesToStore = 5;
     ObjectPooler pooler;
 
+    [Header("Waves Settings")]
+    [SerializeField] private float timeBetweenWaves = 4;
+    int enemiesRemaining = 0;
+
     void Start()
     {
         StartCoroutine(StartTimer());
 
         pooler = new ObjectPooler();
         pooler.StorePoolObject(enemiesToStore, enemy);
+
+        enemiesRemaining = enemiesToSpawn;
     }
 
     float SetRandomDelayTime()
@@ -40,7 +46,6 @@ public class SpawnerController : MonoBehaviour
 
     void SpawnEnemy()
     {
-        //Instantiate(enemy, transform.position, Quaternion.identity);
         GameObject newEnemy = pooler.GetPoolObject(enemy);
         newEnemy.transform.position = transform.position;
         newEnemy.SetActive(true);
@@ -64,5 +69,35 @@ public class SpawnerController : MonoBehaviour
             enemiesToSpawn--;
             StartCoroutine(StartTimer());
         }
+    }
+
+    IEnumerator NextWave()
+    {
+        yield return new WaitForSeconds(timeBetweenWaves);
+
+        enemiesToSpawn = enemiesRemaining = enemiesSpawned;
+        enemiesSpawned = 0;
+
+        StartCoroutine(StartTimer());
+    }
+
+    void EnemyDismiss(EnemyController enemy)
+    {
+        enemiesRemaining--;
+
+        if (enemiesRemaining <= 0)
+        {
+            StartCoroutine(NextWave());
+        }
+    }
+
+    private void OnEnable()
+    {
+        EnemyController.onPathFinished += EnemyDismiss;
+    }
+
+    private void OnDisable()
+    {
+        EnemyController.onPathFinished -= EnemyDismiss;
     }
 }

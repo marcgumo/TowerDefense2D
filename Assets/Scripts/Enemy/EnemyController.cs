@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class EnemyController : MonoBehaviour
     [Header("Patrol Settings")]
     private int currentPathPoint = 0;
     private WayPoint wayPoint;
+
+    public static Action<EnemyController> onPathFinished;
 
     void Awake()
     {
@@ -27,6 +30,8 @@ public class EnemyController : MonoBehaviour
             if (currentPathPoint >= wayPoint._wayPointList.Count)
             {
                 ResetCurrentPathPoint();
+
+                onPathFinished?.Invoke(this);
 
                 gameObject.SetActive(false);
                 return;
