@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - WayPoint
   layers:
   - Default
   - TransparentFX
@@ -43,4 +44,10 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 4135417199
+    locked: 0
+  - name: Turret
+    uniqueID: 3937552627
+    locked: 0
+  - name: Projectile
+    uniqueID: 3653117767
     locked: 0
