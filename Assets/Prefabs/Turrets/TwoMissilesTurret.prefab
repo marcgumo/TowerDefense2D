@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2161956421157263132}
   - component: {fileID: 2161956421157263135}
   - component: {fileID: 2161956421157263104}
+  - component: {fileID: 9098995263878766724}
   - component: {fileID: 2161956421157263134}
   m_Layer: 0
   m_Name: TwoMissilesTurret
@@ -66,6 +67,23 @@ MonoBehaviour:
   attackDelay: 0.75
   projectileToStored: 10
   projectile: {fileID: 9140916312940360717, guid: 075cb73c5bcf3ce4b803cb5de2799abf, type: 3}
+  initialDamage: 20
+--- !u!114 &9098995263878766724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2161956421157263131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b08508979ad296e4b80f96244fc506cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateInitialCost: 40
+  updateCostIncremental: 50
+  damageIncremental: 5
+  delayReduce: 0.005
 --- !u!58 &2161956421157263134
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -5,19 +5,25 @@ using UnityEngine;
 public class TurretProjectileController : MonoBehaviour
 {
     [Header("General Settings")]
-    [SerializeField] private Transform projectileFirePoint;
+    [SerializeField] protected Transform projectileFirePoint;
 
-    [SerializeField] private float attackDelay = 0.75f;
-    float _nextAttackTimer;
+    [SerializeField] protected float attackDelay = 0.75f;
+    protected float _nextAttackTimer;
 
     [Header("Pooler Settings")]
-    [SerializeField] private int projectileToStored = 10;
-    [SerializeField] private GameObject projectile;
+    [SerializeField] protected int projectileToStored = 10;
+    [SerializeField] protected GameObject projectile;
 
-    ObjectPooler pooler;
+    protected ObjectPooler pooler;
+
+    [SerializeField] int initialDamage;
+
+    public int DamageToAssign { get; set; }
+
+    public float DelayPerShot { get; set; }
 
     ProjectileController currentProjectileLoaded;
-    TurretController turret;
+    protected TurretController turret;
 
     void Start()
     {
@@ -25,9 +31,13 @@ public class TurretProjectileController : MonoBehaviour
         pooler.StorePoolObject(projectileToStored, projectile);
 
         turret = GetComponent<TurretController>();
+
+        DamageToAssign = initialDamage;
+
+        DelayPerShot = attackDelay;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -47,7 +57,7 @@ public class TurretProjectileController : MonoBehaviour
                 currentProjectileLoaded.SetEnemy(turret.CurrentEnemyTarget);
             }
 
-            _nextAttackTimer = Time.time + attackDelay;
+            _nextAttackTimer = Time.time + DelayPerShot;
         }
     }
 
@@ -62,6 +72,8 @@ public class TurretProjectileController : MonoBehaviour
         currentProjectileLoaded.TurretOwner = this;
 
         currentProjectileLoaded.ResetProjectile();
+
+        currentProjectileLoaded.damage = DamageToAssign;
 
         _projectile.SetActive(true);
     }

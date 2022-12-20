@@ -5,8 +5,9 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
     [Header("General Settings")]
-    [SerializeField] private float movementSpeed = 12f;
-    [SerializeField] private int damage = 10;
+    [SerializeField] protected float movementSpeed = 12f;
+    //[SerializeField] protected int damage = 10;
+    public int damage { get; set; }
 
     private EnemyController enemyTarget;
 
@@ -14,7 +15,7 @@ public class ProjectileController : MonoBehaviour
 
     public TurretProjectileController TurretOwner { get; set; }
 
-    void Update()
+    protected virtual void Update()
     {
         if (enemyTarget != null)
         {
@@ -24,7 +25,7 @@ public class ProjectileController : MonoBehaviour
         }
     }
 
-    void MoveProjectile()
+    protected virtual void MoveProjectile()
     {
         transform.position = Vector2.MoveTowards(transform.position, enemyTarget.transform.position, movementSpeed * Time.deltaTime);
 

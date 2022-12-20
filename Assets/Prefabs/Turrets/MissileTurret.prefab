@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2333552869490922010}
   - component: {fileID: 2333552869490922009}
-  - component: {fileID: 2333552869490921990}
   - component: {fileID: 2333552869490922008}
+  - component: {fileID: 2333552869490921990}
+  - component: {fileID: 2950107100869759909}
   m_Layer: 0
   m_Name: MissileTurret
   m_TagString: Untagged
@@ -50,22 +51,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 3
   rotationPoint: {fileID: 2333552869502174998}
---- !u!114 &2333552869490921990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2333552869490922013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ca1c57d5f7514746812a42b80731933, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileFirePoint: {fileID: 2333552870936050141}
-  attackDelay: 0.75
-  projectileToStored: 10
-  projectile: {fileID: 1412846304598552876, guid: 90b2db537fb0a8d4c9d2473885579073, type: 3}
 --- !u!58 &2333552869490922008
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -82,6 +67,39 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
+--- !u!114 &2333552869490921990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2333552869490922013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca1c57d5f7514746812a42b80731933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileFirePoint: {fileID: 2333552870936050141}
+  attackDelay: 0.75
+  projectileToStored: 10
+  projectile: {fileID: 1412846304598552876, guid: 90b2db537fb0a8d4c9d2473885579073, type: 3}
+  initialDamage: 10
+--- !u!114 &2950107100869759909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2333552869490922013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b08508979ad296e4b80f96244fc506cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateInitialCost: 20
+  updateCostIncremental: 50
+  damageIncremental: 5
+  delayReduce: 0.005
 --- !u!1 &2333552869502174441
 GameObject:
   m_ObjectHideFlags: 0
