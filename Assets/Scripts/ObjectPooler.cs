@@ -31,7 +31,7 @@ public class ObjectPooler
             Object.Destroy(objectPoolerParent.GetChild(i).gameObject);
         }
 
-        poolItems = new List<GameObject>();
+        poolItems.Clear();
     }
 
     public GameObject GetPoolObject(GameObject prefab)

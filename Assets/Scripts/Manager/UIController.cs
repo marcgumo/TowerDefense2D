@@ -32,6 +32,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private List<GameObject> levelList;
 
+    private int currentLevel = 0;
+
     private void Start()
     {
         DisableLevels();
@@ -159,6 +161,12 @@ public class UIController : MonoBehaviour
     {
         levelList[level].SetActive(true); 
         currencyController = GameObject.FindGameObjectWithTag("Currency").GetComponent<CurrencyController>();
+        currentLevel = level;
+    }
+
+    public int GetCurrentLevel()
+    {
+        return currentLevel;
     }
 
     private void OnEnable()

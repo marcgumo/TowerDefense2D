@@ -15,7 +15,7 @@ public class TurretCardController : MonoBehaviour
 
     public static Action<TurretSettingsController> onPlaceTurret;
 
-    public void SetTurrertButton(TurretSettingsController turretSettings)
+    public void SetTurretButton(TurretSettingsController turretSettings)
     {
         turretImage.sprite = turretSettings.turretShopSprite;
         turretCost.text = turretSettings.turretShopCost.ToString();

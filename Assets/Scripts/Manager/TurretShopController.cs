@@ -26,7 +26,7 @@ public class TurretShopController : MonoBehaviour
         _instance.transform.localScale = Vector3.one;
 
         TurretCardController _cardButton = _instance.GetComponent<TurretCardController>();
-        _cardButton.SetTurrertButton(turretSettings);
+        _cardButton.SetTurretButton(turretSettings);
     }
 
     private NodeController NodeSelected()
@@ -59,6 +59,11 @@ public class TurretShopController : MonoBehaviour
         TurretCardController.onPlaceTurret += PlaceTurret;
 
         NodeController.onTurretSold += RemoveSelectedNode;
+
+        for (int i = 0; i < turretPanelContent.childCount; i++)
+        {
+            Destroy(turretPanelContent.GetChild(i).gameObject);
+        }
     }
 
     private void OnDisable()

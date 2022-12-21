@@ -9,6 +9,7 @@ public class SpawnerController : MonoBehaviour
 
     [Header("General Settings")]
     [SerializeField] private SpawnerType spawnerType = SpawnerType.Fixed;
+    public int currentLevel;
 
     [Header("Fixed Time Settings")]
     [SerializeField] private float spawnDelay = 1f;
@@ -35,6 +36,7 @@ public class SpawnerController : MonoBehaviour
 
     private GameObject newEnemy;
     private int totalEnemiesToSpawn;
+    private UIController UIManager;
 
     void Start()
     {
@@ -110,7 +112,7 @@ public class SpawnerController : MonoBehaviour
     {
         yield return new WaitForSeconds(timeBetweenWaves);
 
-        enemiesToSpawn = enemiesRemaining = enemiesSpawned;
+        enemiesToSpawn = enemiesRemaining = enemiesSpawned + 2;
         enemiesSpawned = 0;
 
         StartCoroutine(StartTimer());
@@ -132,6 +134,14 @@ public class SpawnerController : MonoBehaviour
     {
         EnemyController.onPathFinished += EnemyDismiss;
         HealthManager.onEnemyDead += EnemyDismiss;
+
+        UIManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIController>();
+
+        if (currentLevel != UIManager.GetCurrentLevel())
+        {
+            pooler = new ObjectPooler();
+            pooler.RemovePoolObjects();
+        }
 
         if (enemiesToSpawn == 0)
         {

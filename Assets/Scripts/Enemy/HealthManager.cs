@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class HealthManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class HealthManager : MonoBehaviour
     [Header("Health Manager")]
     [SerializeField] private EnemyType currentEnemyType;
     [SerializeField] private Image hpBar;
+    [SerializeField] private TextMeshProUGUI damageText;
 
     [Header("Stats")]
     [SerializeField] private int maxHealth;
@@ -48,6 +50,8 @@ public class HealthManager : MonoBehaviour
         
         currentHealth -= damage;
 
+        StartCoroutine(ShowDamage(damage));
+
         HPBarUpdate();
 
         if (currentHealth <=0)
@@ -83,6 +87,16 @@ public class HealthManager : MonoBehaviour
         {
             onEnemyHit?.Invoke(enemy);
         }
+    }
+
+    IEnumerator ShowDamage(int damage)
+    {
+        damageText.text = damage.ToString();
+        damageText.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(1f);
+
+        damageText.gameObject.SetActive(false);
     }
 
     public void RestartHealth()
