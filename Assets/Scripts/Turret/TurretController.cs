@@ -62,6 +62,11 @@ public class TurretController : MonoBehaviour
         return rotationPoint;
     }
 
+    public float GetAttackRange()
+    {
+        return attackRange;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.GetComponent<EnemyController>())

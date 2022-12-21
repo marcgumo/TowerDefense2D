@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,10 +12,12 @@ public class NodeController : MonoBehaviour
     public static Action onTurretSold;
 
     public Image effect;
+    public Transform range;
 
     public void SetTurret(TurretController _turret)
     {
         Turret = _turret;
+        StopAllEffects();
     }
 
     public bool IsNodeEmpty()
@@ -26,15 +27,27 @@ public class NodeController : MonoBehaviour
 
     public void SelectTurret()
     {
+        StopAllEffects();
+
+        onNodeSelected?.Invoke(this);
+
+        if (!IsNodeEmpty())
+        {
+            range.localScale = new Vector3(Turret.GetAttackRange() * 2, Turret.GetAttackRange() * 2, 1);
+        }
+
+        StartCoroutine(NodeEffect());
+    }
+
+    private void StopAllEffects()
+    {
         Transform nodes = GameObject.Find("Nodes").transform;
         for (int i = 0; i < nodes.childCount; i++)
         {
             nodes.GetChild(i).GetComponent<NodeController>().StopAllCoroutines();
             nodes.GetChild(i).GetComponent<NodeController>().effect.gameObject.SetActive(false);
+            nodes.GetChild(i).GetComponent<NodeController>().range.localScale = Vector3.one;
         }
-
-        onNodeSelected?.Invoke(this);
-        StartCoroutine(NodeEffect());
     }
 
     IEnumerator NodeEffect()
@@ -54,9 +67,13 @@ public class NodeController : MonoBehaviour
     {
         GameObject.FindGameObjectWithTag("Currency").GetComponent<CurrencyController>().AddCurrency(
             Turret.TurretUpgrade.GetSellValue());
+
         Destroy(Turret.gameObject);
         Turret = null;
+
         GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIController>().CurrentNodeSelected = null;
+
+        StopAllEffects();
 
         onTurretSold?.Invoke();
     }
