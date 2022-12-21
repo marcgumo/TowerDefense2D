@@ -90,6 +90,22 @@ public class UIController : MonoBehaviour
         waveText.text = "Wave " + amount.ToString();
     }
 
+    public void ChangeGameSpeed(int value)
+    {
+        switch (value)
+        {
+            case 0:
+                Time.timeScale = 2f;
+                break;
+            case 1:
+                Time.timeScale = 1f;
+                break;
+            default:
+                Time.timeScale = 0.5f;
+                break;
+        }
+    }
+
     private void OnEnable()
     {
         NodeController.onNodeSelected += NodeSelected;
