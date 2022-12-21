@@ -37,4 +37,24 @@ public class ObjectPooler
 
         return item;
     }
+
+    public GameObject GetPoolObject(GameObject prefab, int enemyType)
+    {
+        for (int i = 0; i < poolItems.Count; i++)
+        {
+            if (!poolItems[i].activeInHierarchy)
+            {
+                if (enemyType == poolItems[i].GetComponent<HealthManager>().GetEnemyType())
+                {
+                    return poolItems[i];
+                }
+            }
+        }
+
+        GameObject item = Object.Instantiate(prefab);
+        poolItems.Add(item);
+        item.SetActive(false);
+
+        return item;
+    }
 }

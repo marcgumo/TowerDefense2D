@@ -57850,11 +57850,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnerType: 0
-  spawnDelay: 2
+  spawnDelay: 1
   minRandomSpawnDelay: 1
   maxRandomSpawnDelay: 4
-  enemiesToSpawn: 5
-  enemy: {fileID: 4680146753669154621, guid: d9120f1a037e96a4d861eda2cbb79542, type: 3}
+  enemiesToSpawn: 10
+  enemyList:
+  - {fileID: 2882252599480147156, guid: e7525d86510e33e41bea359d5eecae35, type: 3}
+  - {fileID: 4680146753669154621, guid: d9120f1a037e96a4d861eda2cbb79542, type: 3}
+  - {fileID: 3516194630476213621, guid: fe29c7837aff2294284a4e67e9634778, type: 3}
+  - {fileID: 1617042172708017395, guid: 69a9f62a993438d49821e1d6100c9fca, type: 3}
+  - {fileID: 5662598957553382082, guid: 61214bff12751274eaf4d5489bfcec25, type: 3}
   enemiesToStore: 10
   timeBetweenWaves: 2
 --- !u!4 &1783949835

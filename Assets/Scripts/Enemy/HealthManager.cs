@@ -121,4 +121,9 @@ public class HealthManager : MonoBehaviour
         enemyDead = false;
         enemy.ResumeMovement();
     }
+
+    public int GetEnemyType()
+    {
+        return (int)currentEnemyType;
+    }
 }
