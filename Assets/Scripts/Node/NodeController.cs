@@ -39,7 +39,7 @@ public class NodeController : MonoBehaviour
         StartCoroutine(NodeEffect());
     }
 
-    private void StopAllEffects()
+    public void StopAllEffects()
     {
         Transform nodes = GameObject.Find("Nodes").transform;
         for (int i = 0; i < nodes.childCount; i++)
