@@ -13,6 +13,12 @@ public class TurretUpgradeController : MonoBehaviour
 
     [SerializeField] private float delayReduce;
 
+    [Header("Sell Settings")]
+    [Range(0, 1)]
+    [SerializeField] private float sellPercent;
+
+    public float SellPerc { get; set; }
+
     public int UpgradeCost { get; set; }
     private CurrencyController currencyController;
 
@@ -27,6 +33,8 @@ public class TurretUpgradeController : MonoBehaviour
         currencyController = GameObject.FindGameObjectWithTag("Currency").GetComponent<CurrencyController>();
 
         LevelUpgrade = 1;
+
+        SellPerc = sellPercent;
     }
 
     void Update()
@@ -62,5 +70,10 @@ public class TurretUpgradeController : MonoBehaviour
         UpgradeCost += updateCostIncremental;
 
         LevelUpgrade++;
+    }
+
+    public int GetSellValue()
+    {
+        return Mathf.RoundToInt(UpgradeCost * SellPerc);
     }
 }

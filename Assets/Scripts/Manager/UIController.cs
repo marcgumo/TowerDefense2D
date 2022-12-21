@@ -29,6 +29,7 @@ public class UIController : MonoBehaviour
             upgradePanel.SetActive(true);
             upgradeText.text = CurrentNodeSelected.Turret.TurretUpgrade.UpgradeCost.ToString();
             levelText.text = "Level " + CurrentNodeSelected.Turret.TurretUpgrade.LevelUpgrade.ToString();
+            sellText.text = CurrentNodeSelected.Turret.TurretUpgrade.GetSellValue().ToString();
         }
     }
 
@@ -52,6 +53,13 @@ public class UIController : MonoBehaviour
         CurrentNodeSelected.Turret.TurretUpgrade.UpgradeTurret();
         upgradeText.text = CurrentNodeSelected.Turret.TurretUpgrade.UpgradeCost.ToString();
         levelText.text = "Level " + CurrentNodeSelected.Turret.TurretUpgrade.LevelUpgrade.ToString();
+        sellText.text = CurrentNodeSelected.Turret.TurretUpgrade.GetSellValue().ToString();
+    }
+
+    public void SellTurret()
+    {
+        CurrentNodeSelected.SellTurret();
+        CloseUpgradePanel();
     }
 
     private void OnEnable()

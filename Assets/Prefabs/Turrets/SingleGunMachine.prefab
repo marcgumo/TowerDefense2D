@@ -203,6 +203,7 @@ MonoBehaviour:
   updateCostIncremental: 50
   damageIncremental: 5
   delayReduce: 0.05
+  sellPercent: 0.5
 --- !u!58 &1708690425781033113
 CircleCollider2D:
   m_ObjectHideFlags: 0

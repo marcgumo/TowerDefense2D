@@ -49,13 +49,22 @@ public class TurretShopController : MonoBehaviour
         }
     }
 
+    private void RemoveSelectedNode()
+    {
+        currentNodeSelected = null;
+    }
+
     private void OnEnable()
     {
         TurretCardController.onPlaceTurret += PlaceTurret;
+
+        NodeController.onTurretSold += RemoveSelectedNode;
     }
 
     private void OnDisable()
     {
         TurretCardController.onPlaceTurret -= PlaceTurret;
+
+        NodeController.onTurretSold -= RemoveSelectedNode;
     }
 }

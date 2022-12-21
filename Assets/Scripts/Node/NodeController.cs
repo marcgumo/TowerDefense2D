@@ -9,6 +9,8 @@ public class NodeController : MonoBehaviour
 
     public static Action<NodeController> onNodeSelected;
 
+    public static Action onTurretSold;
+
     public void SetTurret(TurretController _turret)
     {
         Turret = _turret;
@@ -22,5 +24,14 @@ public class NodeController : MonoBehaviour
     public void SelectTurret()
     {
         onNodeSelected?.Invoke(this);
+    }
+
+    public void SellTurret()
+    {
+        GameObject.FindGameObjectWithTag("Currency").GetComponent<CurrencyController>().AddCurrency(
+            Turret.TurretUpgrade.GetSellValue());
+        Destroy(Turret.gameObject);
+        Turret = null;
+        GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIController>().CurrentNodeSelected = null;
     }
 }
