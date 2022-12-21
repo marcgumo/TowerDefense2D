@@ -40,6 +40,8 @@ public class CurrencyController : MonoBehaviour
     private void OnEnable()
     {
         HealthManager.onEnemyDead += AddCurrencyOnEnemyDead;
+
+        LoadCurrency();
     }
 
     private void OnDisable()

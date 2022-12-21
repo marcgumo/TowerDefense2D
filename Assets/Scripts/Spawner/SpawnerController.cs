@@ -19,7 +19,6 @@ public class SpawnerController : MonoBehaviour
 
     [Header("Enemy Settings")]
     [SerializeField] private int enemiesToSpawn = 10;
-    //[SerializeField] private GameObject enemy;
     int enemiesSpawned = 0;
 
     [SerializeField] private List<GameObject> enemyList;
@@ -42,7 +41,6 @@ public class SpawnerController : MonoBehaviour
         StartCoroutine(StartTimer());
 
         pooler = new ObjectPooler();
-        //pooler.StorePoolObject(enemiesToStore, enemy);
 
         pooler.StorePoolObject(enemiesToStore, enemyList[0]);
         pooler.StorePoolObject(enemiesToStore, enemyList[1]);
@@ -50,9 +48,7 @@ public class SpawnerController : MonoBehaviour
         pooler.StorePoolObject(enemiesToStore, enemyList[3]);
         pooler.StorePoolObject(enemiesToStore, enemyList[4]);
 
-        enemiesRemaining = enemiesToSpawn;
-
-        totalEnemiesToSpawn = enemiesToSpawn;
+        totalEnemiesToSpawn = enemiesRemaining = enemiesToSpawn;
     }
 
     float SetRandomDelayTime()
@@ -136,6 +132,29 @@ public class SpawnerController : MonoBehaviour
     {
         EnemyController.onPathFinished += EnemyDismiss;
         HealthManager.onEnemyDead += EnemyDismiss;
+
+        if (enemiesToSpawn == 0)
+        {
+            enemiesRemaining = enemiesToSpawn = totalEnemiesToSpawn;
+            enemiesSpawned = 0;
+
+            pooler.RemovePoolObjects();
+
+            pooler.StorePoolObject(enemiesToStore, enemyList[0]);
+            pooler.StorePoolObject(enemiesToStore, enemyList[1]);
+            pooler.StorePoolObject(enemiesToStore, enemyList[2]);
+            pooler.StorePoolObject(enemiesToStore, enemyList[3]);
+            pooler.StorePoolObject(enemiesToStore, enemyList[4]);
+
+            GameObject[] turrets = GameObject.FindGameObjectsWithTag("Turret");
+            for (int i = 0; i < turrets.Length; i++)
+            {
+                turrets[i].GetComponentInParent<NodeController>().SetTurret(null);
+                Destroy(turrets[i].gameObject);
+            }
+
+            StartCoroutine(StartTimer());
+        }
     }
 
     private void OnDisable()

@@ -30,15 +30,20 @@ public class UIController : MonoBehaviour
 
     [Header("MainMenu Panel Settings")]
     [SerializeField] private GameObject mainMenuPanel;
+    [SerializeField] private List<GameObject> levelList;
 
     private void Start()
     {
-        currencyController = GameObject.FindGameObjectWithTag("Currency").GetComponent<CurrencyController>();
+        DisableLevels();
+        mainMenuPanel.SetActive(true);
     }
 
     private void Update()
     {
-        currencyText.text = currencyController.CurrentCurrency.ToString();
+        if (currencyController != null)
+        {
+            currencyText.text = currencyController.CurrentCurrency.ToString();
+        }
     }
 
     private void NodeSelected(NodeController nodeSelected)
@@ -138,7 +143,22 @@ public class UIController : MonoBehaviour
     public void MainMenu()
     {
         Time.timeScale = 1f;
+        DisableLevels();
         mainMenuPanel.SetActive(true);
+    }
+
+    private void DisableLevels()
+    {
+        for (int i = 0; i < levelList.Count; i++)
+        {
+            levelList[i].SetActive(false);
+        }
+    }
+
+    public void SelectLevel(int level)
+    {
+        levelList[level].SetActive(true); 
+        currencyController = GameObject.FindGameObjectWithTag("Currency").GetComponent<CurrencyController>();
     }
 
     private void OnEnable()

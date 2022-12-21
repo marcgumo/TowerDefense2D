@@ -126,4 +126,10 @@ public class HealthManager : MonoBehaviour
     {
         return (int)currentEnemyType;
     }
+
+    private void OnEnable()
+    {
+        currentHealth = maxHealth;
+        HPBarUpdate();
+    }
 }

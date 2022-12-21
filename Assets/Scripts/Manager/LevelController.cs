@@ -48,6 +48,15 @@ public class LevelController : MonoBehaviour
         EnemyController.onPathFinished += RemoveLives;
 
         SpawnerController.onWaveCompleted += WaveCompleted;
+
+        if (UIManager != null)
+        {
+            totalLifes = lifes;
+            UIManager.UpdateTotalLives(totalLifes);
+
+            CurrentWave = 1;
+            UIManager.UpdateTotalWaves(CurrentWave);
+        }
     }
 
     private void OnDisable()
