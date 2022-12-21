@@ -31,7 +31,7 @@ public class LevelController : MonoBehaviour
         if (totalLifes <= 0)
         {
             totalLifes = 0;
-            //Game over
+            UIManager.GameOver();
         }
 
         UIManager.UpdateTotalLives(totalLifes);

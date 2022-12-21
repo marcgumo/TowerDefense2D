@@ -25,6 +25,12 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI waveText;
 
+    [Header("GameOver Panel Settings")]
+    [SerializeField] private GameObject gameOverPanel;
+
+    [Header("MainMenu Panel Settings")]
+    [SerializeField] private GameObject mainMenuPanel;
+
     private void Start()
     {
         currencyController = GameObject.FindGameObjectWithTag("Currency").GetComponent<CurrencyController>();
@@ -61,6 +67,16 @@ public class UIController : MonoBehaviour
     public void CloseUpgradePanel()
     {
         upgradePanel.SetActive(false);
+    }
+
+    public void CloseGameOverPanel()
+    {
+        gameOverPanel.SetActive(false);
+    }
+
+    public void CloseMainMenuPanel()
+    {
+        mainMenuPanel.SetActive(false);
     }
 
     public void UpgradeTurret()
@@ -111,6 +127,18 @@ public class UIController : MonoBehaviour
                 Time.timeScale = 0.5f;
                 break;
         }
+    }
+
+    public void GameOver()
+    {
+        Time.timeScale = 0f;
+        gameOverPanel.SetActive(true);
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1f;
+        mainMenuPanel.SetActive(true);
     }
 
     private void OnEnable()
