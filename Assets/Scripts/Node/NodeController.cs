@@ -33,5 +33,7 @@ public class NodeController : MonoBehaviour
         Destroy(Turret.gameObject);
         Turret = null;
         GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIController>().CurrentNodeSelected = null;
+
+        onTurretSold?.Invoke();
     }
 }

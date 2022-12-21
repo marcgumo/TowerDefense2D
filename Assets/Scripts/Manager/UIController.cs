@@ -41,10 +41,12 @@ public class UIController : MonoBehaviour
         if (CurrentNodeSelected.IsNodeEmpty())
         {
             shopPanel.SetActive(true);
+            upgradePanel.SetActive(false);
         }
         else
         {
             upgradePanel.SetActive(true);
+            shopPanel.SetActive(false);
             upgradeText.text = CurrentNodeSelected.Turret.TurretUpgrade.UpgradeCost.ToString();
             levelText.text = "Level " + CurrentNodeSelected.Turret.TurretUpgrade.LevelUpgrade.ToString();
             sellText.text = CurrentNodeSelected.Turret.TurretUpgrade.GetSellValue().ToString();
@@ -76,6 +78,11 @@ public class UIController : MonoBehaviour
 
     public void SellTurret()
     {
+        if (CurrentNodeSelected.IsNodeEmpty())
+        {
+            return;
+        }
+
         CurrentNodeSelected.SellTurret();
         CloseUpgradePanel();
     }
