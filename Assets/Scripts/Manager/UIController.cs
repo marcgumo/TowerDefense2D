@@ -44,6 +44,11 @@ public class UIController : MonoBehaviour
 
     public void UpgradeTurret()
     {
+        if (CurrentNodeSelected.IsNodeEmpty())
+        {
+            return;
+        }
+        
         CurrentNodeSelected.Turret.TurretUpgrade.UpgradeTurret();
         upgradeText.text = CurrentNodeSelected.Turret.TurretUpgrade.UpgradeCost.ToString();
         levelText.text = "Level " + CurrentNodeSelected.Turret.TurretUpgrade.LevelUpgrade.ToString();

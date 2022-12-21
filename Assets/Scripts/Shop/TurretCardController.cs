@@ -39,7 +39,6 @@ public class TurretCardController : MonoBehaviour
             }
 
             _UIManager.CloseShopPanel();
-
         }
     }
 }
