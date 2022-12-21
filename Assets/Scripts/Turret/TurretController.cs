@@ -12,9 +12,13 @@ public class TurretController : MonoBehaviour
 
     public EnemyController CurrentEnemyTarget { get; set; }
 
+    public TurretUpgradeController TurretUpgrade { get; set; }
+
     void Start()
     {
         enemyList = new List<EnemyController>();
+
+        TurretUpgrade = GetComponent<TurretUpgradeController>();
     }
 
     void Update()

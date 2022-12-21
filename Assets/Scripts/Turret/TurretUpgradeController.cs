@@ -16,6 +16,8 @@ public class TurretUpgradeController : MonoBehaviour
     public int UpgradeCost { get; set; }
     private CurrencyController currencyController;
 
+    public int LevelUpgrade { get; set; }
+
     void Start()
     {
         turretProjectile = GetComponent<TurretProjectileController>();
@@ -23,6 +25,8 @@ public class TurretUpgradeController : MonoBehaviour
         UpgradeCost = updateInitialCost;
 
         currencyController = GameObject.FindGameObjectWithTag("Currency").GetComponent<CurrencyController>();
+
+        LevelUpgrade = 1;
     }
 
     void Update()
@@ -56,5 +60,7 @@ public class TurretUpgradeController : MonoBehaviour
     {
         currencyController.RemoveCurrency(UpgradeCost);
         UpgradeCost += updateCostIncremental;
+
+        LevelUpgrade++;
     }
 }

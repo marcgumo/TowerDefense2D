@@ -8,6 +8,8 @@ public class TurretShopController : MonoBehaviour
     [SerializeField] private GameObject turretButtonPrefab;
     [SerializeField] private Transform turretPanelContent;
     [SerializeField] private TurretSettingsController[] turret;
+
+    private NodeController currentNodeSelected;
     
     void Start()
     {
@@ -25,5 +27,35 @@ public class TurretShopController : MonoBehaviour
 
         TurretCardController _cardButton = _instance.GetComponent<TurretCardController>();
         _cardButton.SetTurrertButton(turretSettings);
+    }
+
+    private NodeController NodeSelected()
+    {
+        return GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIController>().CurrentNodeSelected;
+    }
+
+    private void PlaceTurret(TurretSettingsController turretToBePlaced)
+    {
+        currentNodeSelected = NodeSelected();
+
+        if (currentNodeSelected.IsNodeEmpty())
+        {
+            GameObject _instance = Instantiate(turretToBePlaced.turretPrefab);
+            _instance.transform.position = currentNodeSelected.transform.position;
+            _instance.transform.parent = currentNodeSelected.transform;
+
+            TurretController turretPlaced = _instance.GetComponent<TurretController>();
+            currentNodeSelected.SetTurret(turretPlaced);
+        }
+    }
+
+    private void OnEnable()
+    {
+        TurretCardController.onPlaceTurret += PlaceTurret;
+    }
+
+    private void OnDisable()
+    {
+        TurretCardController.onPlaceTurret -= PlaceTurret;
     }
 }
