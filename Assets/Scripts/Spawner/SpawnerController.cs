@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SpawnerController : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class SpawnerController : MonoBehaviour
     [SerializeField] private float timeBetweenWaves = 4;
     int enemiesRemaining = 0;
 
+    public static Action onWaveCompleted;
+
     void Start()
     {
         StartCoroutine(StartTimer());
@@ -41,7 +44,7 @@ public class SpawnerController : MonoBehaviour
 
     float SetRandomDelayTime()
     {
-        return Random.Range(minRandomSpawnDelay, maxRandomSpawnDelay);
+        return UnityEngine.Random.Range(minRandomSpawnDelay, maxRandomSpawnDelay);
     }
 
     void SpawnEnemy()
@@ -79,6 +82,8 @@ public class SpawnerController : MonoBehaviour
         enemiesSpawned = 0;
 
         StartCoroutine(StartTimer());
+
+        onWaveCompleted?.Invoke();
     }
 
     void EnemyDismiss(EnemyController enemy)

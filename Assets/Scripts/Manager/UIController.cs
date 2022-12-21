@@ -17,6 +17,24 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI levelText;
 
+    [Header("HUD Panel Settings")]
+    [SerializeField] private TextMeshProUGUI lifeText;
+    [SerializeField] private TextMeshProUGUI currencyText;
+
+    private CurrencyController currencyController;
+
+    [SerializeField] private TextMeshProUGUI waveText;
+
+    private void Start()
+    {
+        currencyController = GameObject.FindGameObjectWithTag("Currency").GetComponent<CurrencyController>();
+    }
+
+    private void Update()
+    {
+        currencyText.text = currencyController.CurrentCurrency.ToString();
+    }
+
     private void NodeSelected(NodeController nodeSelected)
     {
         CurrentNodeSelected = nodeSelected;
@@ -60,6 +78,16 @@ public class UIController : MonoBehaviour
     {
         CurrentNodeSelected.SellTurret();
         CloseUpgradePanel();
+    }
+
+    public void UpdateTotalLives(int amount)
+    {
+        lifeText.text = amount.ToString();
+    }
+
+    public void UpdateTotalWaves(int amount)
+    {
+        waveText.text = "Wave " + amount.ToString();
     }
 
     private void OnEnable()

@@ -7,32 +7,53 @@ public class LevelController : MonoBehaviour
     [Header("General Settings")]
     [SerializeField] private int lifes = 10;
 
-    private int totalLives;
+    private int totalLifes;
 
-    
+    private UIController UIManager;
+
+    public int CurrentWave { get; set; }
+
     void Start()
     {
-        totalLives = lifes;
+        totalLifes = lifes;
+
+        UIManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIController>();
+        UIManager.UpdateTotalLives(totalLifes);
+
+        CurrentWave = 1;
+        UIManager.UpdateTotalWaves(CurrentWave);
     }
 
     private void RemoveLives(EnemyController enemy)
     {
-        totalLives--;
+        totalLifes--;
 
-        if (totalLives <= 0)
+        if (totalLifes <= 0)
         {
-            totalLives = 0;
+            totalLifes = 0;
             //Game over
         }
+
+        UIManager.UpdateTotalLives(totalLifes);
+    }
+
+    private void WaveCompleted()
+    {
+        CurrentWave++;
+        UIManager.UpdateTotalWaves(CurrentWave);
     }
 
     private void OnEnable()
     {
         EnemyController.onPathFinished += RemoveLives;
+
+        SpawnerController.onWaveCompleted += WaveCompleted;
     }
 
     private void OnDisable()
     {
         EnemyController.onPathFinished -= RemoveLives;
+
+        SpawnerController.onWaveCompleted -= WaveCompleted;
     }
 }
