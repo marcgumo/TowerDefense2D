@@ -13,10 +13,10 @@ public class TurretShopController : MonoBehaviour
     
     void Start()
     {
-        for (int i = 0; i < turret.Length; i++)
-        {
-            CreateTurretCard(turret[i]);
-        }
+        //for (int i = 0; i < turret.Length; i++)
+        //{
+        //    CreateTurretCard(turret[i]);
+        //}
     }
 
     private void CreateTurretCard(TurretSettingsController turretSettings)
@@ -63,6 +63,11 @@ public class TurretShopController : MonoBehaviour
         for (int i = 0; i < turretPanelContent.childCount; i++)
         {
             Destroy(turretPanelContent.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < turret.Length; i++)
+        {
+            CreateTurretCard(turret[i]);
         }
     }
 
